@@ -1,0 +1,8 @@
+{
+    "mcpServers": {
+      "supplier-workbench": {
+        "command": "/Users/ss-winner/.nvm/versions/node/v22.23.4/bin/npx",
+        "args": ["tsx", "/Users/ss-winner/Downloads/holiday-agent 2/src/mcp-server/index.ts"]
+      }
+    }
+  }

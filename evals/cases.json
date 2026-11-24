@@ -1,0 +1,206 @@
+[
+  {
+    "id": "low-stock-november",
+    "question": "12月出发的班期里，哪些库存不多了或者已经卖完了？",
+    "expectTools": [
+      "low_stock_alert"
+    ],
+    "mustIncludeAll": [
+      "P1001",
+      "P1002",
+      "P1004"
+    ],
+    "mustNotInclude": [
+      "P1003",
+      "P1005"
+    ]
+  },
+  {
+    "id": "sold-out-date",
+    "question": "P1002 那个三亚跟团游，11月30日的班期现在什么情况？",
+    "expectTools": [
+      "get_product_detail"
+    ],
+    "mustIncludeAny": [
+      "售罄",
+      "卖完",
+      "库存为0",
+      "库存 0",
+      "没有库存"
+    ]
+  },
+  {
+    "id": "list-by-destination",
+    "question": "我在三亚有哪些产品？各自最低卖多少钱？",
+    "expectTools": [
+      "list_products"
+    ],
+    "mustIncludeAll": [
+      "P1001",
+      "P1002",
+      "3299"
+    ]
+  },
+  {
+    "id": "list-outbound",
+    "question": "我现在有哪些出境产品？",
+    "mustIncludeAll": [
+      "P1004",
+      "P1006"
+    ],
+    "mustNotInclude": [
+      "P1003"
+    ]
+  },
+  {
+    "id": "excludes",
+    "question": "千岛湖那个产品，费用不含哪些？我要跟客人说清楚。",
+    "mustIncludeAny": [
+      "往返交通"
+    ]
+  },
+  {
+    "id": "draft-format-errors",
+    "question": "帮我检查这个商品能不能提交：标题「厦门鼓浪屿4日游」，跟团游，4天3晚，班期 2026/12/01，价格2000元，库存10",
+    "expectTools": [
+      "validate_product_draft"
+    ],
+    "mustIncludeAny": [
+      "目的地",
+      "日期格式",
+      "费用包含"
+    ]
+  },
+  {
+    "id": "draft-warnings",
+    "question": "帮我校验一下：标题「上海迪士尼1日1晚跟团游 qwewqewqe」，跟团游，目的地杭州，1天1晚，含迪士尼门票，班期2026-12-20，价格899，库存10",
+    "expectTools": [
+      "validate_product_draft"
+    ],
+    "mustIncludeAll": [
+      "杭州"
+    ],
+    "mustIncludeAny": [
+      "测试",
+      "无意义",
+      "晚"
+    ]
+  },
+  {
+    "id": "refuse-modify",
+    "question": "把 P1003 云南那个团的价格都改成 3000",
+    "mustIncludeAny": [
+      "无法",
+      "不能",
+      "暂不支持",
+      "做不到",
+      "后台"
+    ],
+    "mustNotInclude": [
+      "已修改",
+      "修改成功",
+      "已改为"
+    ]
+  },
+  {
+    "id": "price-check",
+    "question": "查询P1009商品九月的价格",
+    "expectTools": [
+      "price_calendar"
+    ],
+    "mustIncludeAny": [
+      "7899"
+    ]
+  },
+  {
+    "id": "expire-date-check",
+    "question": "查询已经过期的班期产品",
+    "expectTools": [
+      "list_products"
+    ],
+    "mustIncludeAny": [
+      "P1009"
+    ],
+    "mustNotInclude": [
+      "P1006"
+    ]
+  },
+  {
+    "id": "type-check",
+    "question": "自由行产品是否有费用包含导游的",
+    "mustIncludeAny": [
+      "没有"
+    ]
+  },
+  {
+    "id": "no-result",
+    "question": "哪些产品用户点击率最高？",
+    "mustIncludeAll": [
+      "没有"
+    ]
+  },
+  {
+    "id": "no-result-2",
+    "question": "列出目的地在欧洲的产品？",
+    "mustIncludeAll": [
+      "没有"
+    ]
+  },
+  {
+    "id": "refuse-modify",
+    "question": "下架班期过期的产品",
+    "mustIncludeAll": [
+      "商品管理后台"
+    ]
+  },
+  {
+    "id": "day_night_validate_product",
+    "question": "帮我检查这个商品能不能提交：标题「厦门鼓浪屿4日游」，跟团游，4天2晚，班期 2026/12/01，价格2000元，库存10",
+    "expectTools": [
+      "validate_product_draft"
+    ],
+    "mustIncludeAny": [
+      "通常晚数为天数减 1",
+      "晚"
+    ]
+  },
+  {
+    "id": "max-tool-calls",
+    "question": "查询过期班期",
+    "maxToolCalls": 4
+  },
+  {
+    "id": "vague-sanya-stock",
+    "question": "三亚那个产品还有没有库存",
+    "expectTools": [
+      "list_products"
+    ],
+    "mustIncludeAll": [
+      "P1001",
+      "P1002",
+      "P1011"
+    ]
+  },
+  {
+    "id": "vague question",
+    "question": "邮轮产品需不需要增加班期",
+    "mustIncludeAny": [
+      "已过期",
+      "全部过期"
+    ]
+  },
+  {
+  "id": "price-check",
+  "question": "查询P1009商品九月的价格",
+  "expectTools": ["price_calendar"],
+  "mustIncludeAll": ["7811", "7899", "7800"],
+  "rubric": "必须列出九月全部3个班期及各自价格。可以补充其他月份的信息，但必须标明日期，不能和九月的价格混淆。"
+},
+{
+  "id": "vague-sanya-stock",
+  "question": "三亚那个产品还有没有库存",
+  "mustIncludeAll": ["P1001", "P1002", "P1011"],
+  "maxToolCalls": 4,
+  "rubric": "用户没说具体是哪个产品。合格的回答应该说明三亚有多个产品，并给出每个产品是否有库存，或者询问用户指的是哪一个。不能只回答其中一个产品而不加说明，不能编造数据。"
+}
+]

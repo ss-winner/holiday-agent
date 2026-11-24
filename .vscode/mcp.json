@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "supplier-workbench": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["tsx", "${workspaceFolder}/src/mcp-server/index.ts"]
+    }
+  }
+}
