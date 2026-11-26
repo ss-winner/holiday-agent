@@ -39,6 +39,22 @@ export default function App() {
   const [sessionId, setSessionId] = useState<string>();
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const [password, setPassword] = useState(() => {
+    try {
+      return localStorage.getItem("accessPassword") ?? "";
+    } catch {
+      return "";
+    }
+  });
+
+  function savePassword(value: string) {
+    setPassword(value);
+    try {
+      localStorage.setItem("accessPassword", value);
+    } catch {
+      /* 浏览器禁用存储时忽略 */
+    }
+  }
 
   // 有新消息或进入加载状态时，自动滚动到底部
   useEffect(() => {
@@ -54,7 +70,7 @@ export default function App() {
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "X-Access-Password": password },
         body: JSON.stringify({ question, sessionId }),
       });
       const data = await res.json();
@@ -100,6 +116,13 @@ export default function App() {
           <h1>度假供应商工作台助手</h1>
           <p className="subtitle">MCP + MiniMax Agent · 只能查询和校验，不能修改数据</p>
         </div>
+        <input
+          type="password"
+          className="pwd"
+          placeholder="访问密码"
+          value={password}
+          onChange={(e) => savePassword(e.target.value)}
+        />
         <button className="ghost" onClick={newChat} disabled={loading}>
           新对话
         </button>
